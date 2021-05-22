@@ -1,8 +1,13 @@
 .buttonContainer{
     height: 40px;
+    background-color: white;
 }
 
 .colourBox{
-    height: 200px;
+    height: 250px;
     border-radius: 10%;
+}
+
+#body{
+    font-family: 'Raleway', sans-serif;
 }
