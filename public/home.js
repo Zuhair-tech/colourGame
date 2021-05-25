@@ -12,6 +12,7 @@ var banner = document.querySelector('#banner');
 var coloursArray = [];
 var numSquares = 6;
 var targetColour;
+// var isGameOver = false;
 
 makeColour = () => {
     var a = Math.floor(Math.random() * 257);
@@ -63,6 +64,7 @@ reset = () => {
                 clickResult.innerHTML = "Correct!!";
                 playAgain.classList.remove("disabled");
                 newColours.classList.add("disabled");
+                // isGameOver = true;
                 for (let j = 0; j < colourBox.length ; j++) {
                     colourBox[j].classList.remove("bg-dark");
                     colourBox[j].style.backgroundColor = targetColour;
@@ -79,6 +81,10 @@ reset = () => {
 }
 
 easyButton.addEventListener("click" , function(){
+    // if (isGameOver == false) {
+    //     reset();
+    // }  
+    
     numSquares = 3;
     easyButton.classList.add("active");
     hardButton.classList.remove("active");
@@ -86,6 +92,10 @@ easyButton.addEventListener("click" , function(){
 });
 
 hardButton.addEventListener("click" , function(){
+    // if (isGameOver == false) {
+    //     reset();
+    // }
+    
     numSquares = 6;
     easyButton.classList.remove("active");
     hardButton.classList.add("active");
@@ -94,6 +104,7 @@ hardButton.addEventListener("click" , function(){
 
 playAgain.addEventListener("click" , function(){
     clickResult.innerHTML = "";
+    // isGameOver = false;
     playAgain.classList.add("disabled");
     newColours.classList.remove("disabled");
     reset();
