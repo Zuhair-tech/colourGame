@@ -32,7 +32,7 @@ moreColours = () => {
 };
 
 chooseOneColour = ( array ) => {
-    return array[Math.floor( Math.random() * 7 )]
+    return array[Math.floor( Math.random() * (numSquares+1) )]
 };
 
 checkCorrectColour = (target , chosen) => {
