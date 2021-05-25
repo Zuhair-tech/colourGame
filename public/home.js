@@ -7,6 +7,11 @@ var hardButton = document.querySelector('#hardButton');
 var colourBox = document.getElementsByClassName('colourBox');
 var chosenColour = document.querySelector('#chosenColour');
 var gameArea = document.querySelector('#gameArea');
+var banner = document.querySelector('#banner');
+
+var coloursArray = [];
+var numSquares = 6;
+var targetColour;
 
 makeColour = () => {
     var a = Math.floor(Math.random() * 257);
@@ -17,7 +22,7 @@ makeColour = () => {
 };
 
 moreColours = () => {
-    var array = new Array(6);
+    var array = new Array(numSquares);
     for (let i = 0 ; i < array.length ; i++) {
         array[i] = makeColour();        
     } 
@@ -33,30 +38,67 @@ checkCorrectColour = (target , chosen) => {
     return target === chosen ;
 }
 
-var coloursArray = moreColours();
-var targetColour = chooseOneColour(coloursArray)
-chosenColour.innerHTML = targetColour.toUpperCase();
+reset = () => {
+    coloursArray = moreColours();
+    targetColour = chooseOneColour(coloursArray);
+    chosenColour.innerHTML = targetColour;
+    banner.classList.add("bg-primary");
 
-for (let i = 0 ; i < colourBox.length ; i++) {
-    colourBox[i].style.backgroundColor = coloursArray[i];
-    colourBox[i].setAttribute("colour" , coloursArray[i])  ;
-
-    colourBox[i].addEventListener("click", function(){
-        if(checkCorrectColour(targetColour , this.getAttribute("colour"))){
-            clickResult.innerHTML = "Correct!!";
-            for (let j = 0; j < colourBox.length ; j++) {
-                if( j == i){
-                    continue;
-                }
-                colourBox[j].style.backgroundColor = targetColour;                
-            }
+    for (let i = 0 ; i < colourBox.length ; i++) {
+        if (i > 2 && numSquares == 3) {
+            colourBox[i].style.display = "none";
         }else{
-            clickResult.innerHTML = "Wrong!!";
-            this.style.backgroundColor = "black";
+            colourBox[i].style.display = "block";
         }
-      
-    });    
-};
+    
+        colourBox[i].style.backgroundColor = coloursArray[i];
+        colourBox[i].setAttribute("colour" , coloursArray[i]);
+    
+        colourBox[i].addEventListener("click", function(){
+            if(checkCorrectColour(targetColour , this.getAttribute("colour"))){
+                clickResult.innerHTML = "Correct!!";
+                playAgain.classList.remove("disabled");
+                for (let j = 0; j < colourBox.length ; j++) {
+                    colourBox[j].classList.remove("bg-dark");
+                    colourBox[j].style.backgroundColor = targetColour;
+                    banner.classList.remove("bg-primary");
+                    banner.style.backgroundColor = targetColour;                                 
+                }
+            }else{
+                clickResult.innerHTML = "Wrong!!";
+                this.classList.add("bg-dark");
+            }
+            
+        });    
+    };
+}
+
+easyButton.addEventListener("click" , function(){
+    numSquares = 3;
+    easyButton.classList.add("active");
+    hardButton.classList.remove("active");
+    reset();
+});
+
+hardButton.addEventListener("click" , function(){
+    numSquares = 6;
+    easyButton.classList.remove("active");
+    hardButton.classList.add("active");
+    reset();
+});  
+
+playAgain.addEventListener("click" , function(){
+    clickResult.innerHTML = "";
+    playAgain.classList.add("disabled");
+    reset();
+});  
+
+newColours.addEventListener("click" , function(){
+    reset();
+});  
+
+
+
 
 
 
