@@ -47,8 +47,12 @@ reset = () => {
     for (let i = 0 ; i < colourBox.length ; i++) {
         if (i > 2 && numSquares == 3) {
             colourBox[i].style.display = "none";
-        }else{
-            colourBox[i].style.display = "block";
+        }
+        
+        if(numSquares == 6){
+            for (let j = 0; j < 6 ; j++) {
+                colourBox[i].style.display = "block";                                
+            }       
         }
     
         colourBox[i].style.backgroundColor = coloursArray[i];
@@ -58,6 +62,7 @@ reset = () => {
             if(checkCorrectColour(targetColour , this.getAttribute("colour"))){
                 clickResult.innerHTML = "Correct!!";
                 playAgain.classList.remove("disabled");
+                newColours.classList.add("disabled");
                 for (let j = 0; j < colourBox.length ; j++) {
                     colourBox[j].classList.remove("bg-dark");
                     colourBox[j].style.backgroundColor = targetColour;
@@ -90,6 +95,7 @@ hardButton.addEventListener("click" , function(){
 playAgain.addEventListener("click" , function(){
     clickResult.innerHTML = "";
     playAgain.classList.add("disabled");
+    newColours.classList.remove("disabled");
     reset();
 });  
 
