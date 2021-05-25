@@ -46,14 +46,10 @@ reset = () => {
     banner.classList.add("bg-primary");
 
     for (let i = 0 ; i < colourBox.length ; i++) {
-        if (i > 2 && numSquares == 3) {
+        if (coloursArray[i]) {
+            colourBox[i].style.display = "block";
+        }else{
             colourBox[i].style.display = "none";
-        }
-        
-        if(numSquares == 6){
-            for (let j = 0; j < 6 ; j++) {
-                colourBox[i].style.display = "block";                                
-            }       
         }
     
         colourBox[i].style.backgroundColor = coloursArray[i];
@@ -64,7 +60,6 @@ reset = () => {
                 clickResult.innerHTML = "Correct!!";
                 playAgain.classList.remove("disabled");
                 newColours.classList.add("disabled");
-                // isGameOver = true;
                 for (let j = 0; j < colourBox.length ; j++) {
                     colourBox[j].classList.remove("bg-dark");
                     colourBox[j].style.backgroundColor = targetColour;
@@ -80,11 +75,7 @@ reset = () => {
     };
 }
 
-easyButton.addEventListener("click" , function(){
-    // if (isGameOver == false) {
-    //     reset();
-    // }  
-    
+easyButton.addEventListener("click" , function(){    
     numSquares = 3;
     easyButton.classList.add("active");
     hardButton.classList.remove("active");
@@ -92,10 +83,6 @@ easyButton.addEventListener("click" , function(){
 });
 
 hardButton.addEventListener("click" , function(){
-    // if (isGameOver == false) {
-    //     reset();
-    // }
-    
     numSquares = 6;
     easyButton.classList.remove("active");
     hardButton.classList.add("active");
